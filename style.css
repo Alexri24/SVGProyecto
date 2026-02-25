@@ -1,0 +1,58 @@
+:root {
+    --bg-color: #e0e5ec;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --butaca-red: #d32f2f;
+    --butaca-blue: #2196f3;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+h1 { color: #2c3e50; margin-bottom: 30px; }
+
+/* Contenedor del Teatro (SVG) */
+.teatro-container {
+    background: #f0f2f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Color inicial: Granate/Rojo oscuro de la foto */
+.butaca {
+    fill: #b22222; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    transform-origin: center;
+}
+
+/* Al pasar por encima: AZUL y se levanta con sombra */
+.butaca:hover {
+    fill: #2196f3 !important;
+    transform: scale(1.1) translateY(-4px);
+    filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.2));
+}
+
+/* Al clicar y para estado permanente: VERDE y vuelve a su sitio */
+.butaca:active, .butaca.seleccionada {
+    fill: #4caf50 !important;
+    transform: scale(1) translateY(0);
+    filter: none;
+}
+/* Si quieres que se quede marcada después de clicar, usamos esta clase */
+
+
+/* Estilo para el Canvas */
+#canvasLogo {
+    background-color: black;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
