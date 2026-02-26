@@ -10,11 +10,11 @@ butacas.forEach(butaca => {
 });
 
 // --- 2. LÓGICA CANVAS  ---
-// 1. Seleccionamos el elemento y el contexto (Diapositiva 2)
+// 1. Seleccionamos el elemento y el contexto 
 const canvas = document.getElementById('canvasLogo');
 const ctx = canvas.getContext('2d');
 
-// 2. Objeto ratón para la interactividad (Diapositiva 4)
+// 2. Objeto ratón para la interactividad 
 let raton = {
     x: undefined,
     y: undefined
@@ -34,7 +34,7 @@ canvas.addEventListener('mouseleave', function () {
     raton.y = undefined;
 });
 
-// 3. Creamos la Clase con su constructor y métodos (Diapositiva 5)
+// 3. Creamos la Clase con su constructor y métodos 
 class LogoTeatro {
     constructor(x, y) {
         this.x = x; // Centro X
@@ -60,11 +60,11 @@ class LogoTeatro {
         let targetScale = this.isHover ? 1.05 : 1.0;
         this.partScale += (targetScale - this.partScale) * 0.1;
 
-        // Llamamos al método dibuja al final de actualizar (Diapositiva 5)
+        // Llamamos al método dibuja al final de actualizar 
         this.dibuja();
     }
 
-    // Método que pinta en el Canvas (Diapositiva 5 y 10)
+    // Método que pinta en el Canvas 
     dibuja() {
         // PARTE 1: Círculo de fondo con resplandor
         ctx.save();
@@ -103,7 +103,7 @@ class LogoTeatro {
         ctx.fillText("Theater", 0, 7);
         ctx.restore();
 
-        // PARTE 3: Icono del Helado (Trazado manual - Diapositiva 10)
+        // PARTE 3: Icono del Helado 
         ctx.save();
         ctx.translate(this.x, this.y + 35);
         if(this.isHover) ctx.rotate(Math.sin(this.floatAnim * 1.5) * 0.15);
@@ -121,7 +121,7 @@ class LogoTeatro {
         ctx.fill();
         ctx.restore();
 
-        // EXTRA: Texto inferior "5 Salas!"
+        // EXTRA: Texto inferior 
         ctx.save();
         ctx.translate(this.x, this.y + 90);
         let textBounce = this.isHover ? 1.2 : 1.0;
@@ -140,7 +140,7 @@ class LogoTeatro {
 // Instanciamos nuestro objeto pasándole el centro del canvas
 let miLogo = new LogoTeatro(canvas.width / 2, canvas.height / 2);
 
-// 4. Bucle de animación (Diapositiva 6 y 12)
+// 4. Bucle de animación 
 function anima() {
     requestAnimationFrame(anima);
     // Borramos el canvas entero antes de redibujar
