@@ -10,57 +10,30 @@ butacas.forEach(butaca => {
 });
 
 // --- 2. LÓGICA CANVAS  ---
-// 1. Seleccionamos el elemento y el contexto 
+
+// 1. Selección del elemento y el contexto 2D 
 const canvas = document.getElementById('canvasLogo');
 const ctx = canvas.getContext('2d');
 
-// 2. Objeto ratón para la interactividad 
-let raton = {
-    x: undefined,
-    y: undefined
-};
-
-// Escuchamos el movimiento del ratón dentro del canvas
-canvas.addEventListener('mousemove', function (e) {
-    // Calculamos la posición exacta dentro del recuadro del canvas
-    const rect = canvas.getBoundingClientRect();
-    raton.x = e.clientX - rect.left;
-    raton.y = e.clientY - rect.top;
-});
-
-// Cuando el ratón sale, reiniciamos su posición
-canvas.addEventListener('mouseleave', function () {
-    raton.x = undefined;
-    raton.y = undefined;
-});
-
-// 3. Creamos la Clase con su constructor y métodos 
+// 2. Definición de la Clase siguiendo el boilerplate 
 class LogoTeatro {
     constructor(x, y) {
-        this.x = x; // Centro X
-        this.y = y; // Centro Y
+        this.x = x; 
+        this.y = y; 
         this.floatAnim = 0; // Reloj de animación
         this.partScale = 1; // Escala inicial
-        this.isHover = false; // Estado del ratón
+        this.isHover = false; // Estado de interactividad
     }
 
-    // Método que controla la lógica y el movimiento
+    // Método que controla la lógica y el movimiento (
     actualiza() {
-        // Si el ratón tiene coordenadas (está dentro del canvas), activamos el hover
-        if (raton.x !== undefined && raton.y !== undefined) {
-            this.isHover = true;
-        } else {
-            this.isHover = false;
-        }
-
-        // Avanzamos el reloj de la animación
+        // Avanzamos el reloj de la animación para los senos matemáticos
         this.floatAnim += 0.05;
 
-        // Suavizado general de la escala al pasar el ratón
+        // Suavizado de la escala al pasar el ratón
         let targetScale = this.isHover ? 1.05 : 1.0;
         this.partScale += (targetScale - this.partScale) * 0.1;
 
-        // Llamamos al método dibuja al final de actualizar 
         this.dibuja();
     }
 
@@ -108,11 +81,13 @@ class LogoTeatro {
         ctx.translate(this.x, this.y + 35);
         if(this.isHover) ctx.rotate(Math.sin(this.floatAnim * 1.5) * 0.15);
         
+        // Bola de helado (ctx.arc)
         ctx.fillStyle = "white";
         ctx.beginPath();
         ctx.arc(0, 0, 8, 0, Math.PI * 2);
         ctx.fill();
         
+        // Cono (Uso de beginPath, moveTo y lineTo)
         ctx.fillStyle = "#d2b48c";
         ctx.beginPath();
         ctx.moveTo(-8, 3);
@@ -137,18 +112,23 @@ class LogoTeatro {
     }
 }
 
-// Instanciamos nuestro objeto pasándole el centro del canvas
+// 3. Instanciamos el objeto único pasándole el centro del canvas 
 let miLogo = new LogoTeatro(canvas.width / 2, canvas.height / 2);
 
-// 4. Bucle de animación 
+// --- INTERACTIVIDAD (Eventos de Hover) ---
+// Modificamos directamente la propiedad del objeto instanciado
+canvas.addEventListener('mouseenter', () => miLogo.isHover = true);
+canvas.addEventListener('mouseleave', () => miLogo.isHover = false);
+
+// 4. Bucle de animación usando requestAnimationFrame 
 function anima() {
-    requestAnimationFrame(anima);
-    // Borramos el canvas entero antes de redibujar
+    requestAnimationFrame(anima); 
+    // Borrado obligatorio del canvas para evitar rastro 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Llamamos solo a actualiza, que por dentro ya llama a dibuja
+    // Ejecutamos la lógica de actualización 
     miLogo.actualiza();
 }
 
-// Arrancamos la animación
+// Arrancamos la animación 
 anima();
