@@ -9,7 +9,7 @@ butacas.forEach(butaca => {
     });
 });
 
-// --- 2. LÓGICA CANVAS (LOGO JOKI'S THEATER) ---
+// --- 2. LÓGICA CANVAS  ---
 const canvas = document.getElementById('canvasLogo');
 const ctx = canvas.getContext('2d');
 

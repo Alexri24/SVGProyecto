@@ -45,7 +45,6 @@ h1 { color: #2c3e50; margin-bottom: 30px; }
     transform: scale(1) translateY(0);
     filter: none;
 }
-/* Si quieres que se quede marcada después de clicar, usamos esta clase */
 
 
 /* Estilo para el Canvas */
