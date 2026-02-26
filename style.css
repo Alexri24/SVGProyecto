@@ -12,42 +12,95 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center; 
     padding: 40px;
+    width: 100%;
 }
 
-h1 { color: #2c3e50; margin-bottom: 30px; }
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1, h2 { 
+    color: #2c3e50; 
+    margin-bottom: 30px; 
+}
+
+hr {
+    width: 80%;
+    margin: 30px auto;
+}
 
 /* Contenedor del Teatro (SVG) */
 .teatro-container {
     background: #f0f2f5;
     padding: 20px;
     border-radius: 10px;
+    display: flex; 
+    justify-content: center; /* Centra el SVG horizontalmente */
+    margin: 0 auto; 
 }
 
-/* Color inicial: Granate/Rojo oscuro de la foto */
+/* --- 1. DEFINICIÓN DE KEYFRAMES (SVG) --- */
+
+/* Animación al pasar el ratón: se levanta y se vuelve azul */
+@keyframes flotarHover {
+    0% {
+        transform: scale(1) translateY(0);
+        fill: #b22222;
+        filter: none;
+    }
+    100% {
+        transform: scale(1.1) translateY(-4px);
+        fill: #2196f3;
+        filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.2));
+    }
+}
+
+/* Animación al hacer clic: pequeño rebote (squash) y se vuelve verde */
+@keyframes reboteSeleccion {
+    0% { 
+        transform: scale(1.1) translateY(-4px); 
+        fill: #2196f3; 
+    }
+    50% { 
+        transform: scale(0.9) translateY(2px); /* Se hunde un poco (efecto muelle) */
+    }
+    100% { 
+        transform: scale(1) translateY(0); 
+        fill: #4caf50; 
+        filter: none; 
+    }
+}
+
+/* --- 2. APLICACIÓN A LAS BUTACAS --- */
+
 .butaca {
     fill: #b22222; 
     cursor: pointer;
-    transition: all 0.2s ease;
+    
+    /* ¡VITAL EN SVG! Para que escale desde su propio centro y no desde la esquina del lienzo */
+    transform-box: fill-box;
     transform-origin: center;
 }
 
-/* Al pasar por encima: AZUL y se levanta con sombra */
+/* Al pasar por encima ejecutamos la animación de flotar */
 .butaca:hover {
-    fill: #2196f3 !important;
-    transform: scale(1.1) translateY(-4px);
-    filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.2));
+    animation: flotarHover 0.2s ease forwards;
 }
 
-/* Al clicar y para estado permanente: VERDE y vuelve a su sitio */
-.butaca:active, .butaca.seleccionada {
-    fill: #4caf50 !important;
-    transform: scale(1) translateY(0);
-    filter: none;
+/* Al estar seleccionada, ejecutamos el rebote */
+.butaca.seleccionada {
+    animation: reboteSeleccion 0.4s ease-out forwards;
+    fill: #4caf50 !important; 
 }
 
+/* --- 3. ESTILO PARA EL CANVAS --- */
 
-/* Estilo para el Canvas */
 #canvasLogo {
     background-color: black;
     display: block;
